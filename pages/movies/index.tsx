@@ -13,18 +13,18 @@ interface MoviesProps {
 }
 
 const Movies = ({ popularMovies }: MoviesProps) => {
+
+
   return (
     <div>
       <h1>Popular Movies</h1>
       <ul>
         {popularMovies.map((movie) => (
           <li key={movie.id}>
-            <div>
-              <h2>{movie.name}</h2>
-              {movie.image && (
-                <Image src={movie.image} alt={movie.name} width="150" height="200" />
-              )}
-            </div>
+            <Link href={`/movies/${movie.id}`}>
+            <h2>{movie.name}</h2>
+            <Image src={movie.image} alt={movie.name} width="150" height="200" />
+            </Link>
           </li>
         ))}
       </ul>
