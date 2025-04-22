@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from 'next/image';
 
 
 interface PopularMovie {
@@ -23,7 +22,6 @@ const Movies = ({ popularMovies }: MoviesProps) => {
           <li key={movie.id}>
             <Link href={`/movies/${movie.id}`}>
             <h2>{movie.name}</h2>
-            <Image src={movie.image} alt={movie.name} width="150" height="200" />
             </Link>
           </li>
         ))}

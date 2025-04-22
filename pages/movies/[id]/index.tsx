@@ -5,6 +5,8 @@ interface Movie {
   id: string;
   name: string;
   image: string;
+  MainCharacter : string;
+  releaseDate : string;
 }
 
 interface MovieDetailsProps {
@@ -12,17 +14,22 @@ interface MovieDetailsProps {
 }
 
 export default function MovieDetails({ movie }: MovieDetailsProps) {
+    
   return (
     <div>
       <h1>{movie.name}</h1>
-      <Image src={movie.image} alt={movie.name} width={200} height={200} />
+      <div> Released on : {movie.releaseDate}</div>
+      <div>Main Character : {movie.MainCharacter}</div>
+      <Image src={movie.image} alt={movie.name} width={150} height={200} />
+      {/* <img src={movie.image} alt={movie.name} width="150" height="200" /> */}
+
     </div>
   );
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const res = await fetch(
-    "https://67f8e890094de2fe6e9fb1d5.mockapi.io/popular_movies/moviesDetails"
+    "https://67f8e890094de2fe6e9fb1d5.mockapi.io/popular_movies/movies"
   );
   const movies: Movie[] = await res.json();
 
@@ -32,7 +39,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   return {
     paths,
-    fallback: false,
+    fallback: "blocking",
+    
   };
 };
 
@@ -46,7 +54,7 @@ export const getStaticProps: GetStaticProps<MovieDetailsProps> = async (context)
   }
 
   const res = await fetch(
-    `https://67f8e890094de2fe6e9fb1d5.mockapi.io/popular_movies/moviesDetails/${params.id}`
+    `https://67f8e890094de2fe6e9fb1d5.mockapi.io/popular_movies/movies/${params.id}`
   );
   const movie: Movie = await res.json();
 
@@ -54,5 +62,6 @@ export const getStaticProps: GetStaticProps<MovieDetailsProps> = async (context)
     props: {
       movie,
     },
+    revalidate: 1
   };
 };
