@@ -14,7 +14,7 @@ const HomePage = ({ movies }: MoviesProps) => {
       </h1>
 
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-2xl font-semibold text-gray-800 mb-6">🎬 Latest Movies</h2>
+        <h2 className="text-2xl font-semibold text-gray-800 mb-6 text-center">Latest Movies</h2>
         <LatestMovies movies={movies} />
       </div>
 
