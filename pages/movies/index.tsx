@@ -1,27 +1,30 @@
 import Link from "next/link";
+import { getMovies } from "../../apis/index";
+import { MoviesProps } from "@/types/movies";
+import { GetStaticProps } from "next";
+import { POPULAR_MOVIES_MESSAGE } from "@/constants/constants";
 
-
-interface PopularMovie {
-  id: number;
-  name: string;
-  image: string;
-}
-
-interface MoviesProps {
-  popularMovies: PopularMovie[];
-}
-
-const Movies = ({ popularMovies }: MoviesProps) => {
-
-
+const Movies = ({ movies }: MoviesProps) => {
   return (
-    <div>
-      <h1>Popular Movies</h1>
-      <ul>
-        {popularMovies.map((movie) => (
-          <li key={movie.id}>
-            <Link href={`/movies/${movie.id}`}>
-            <h2>{movie.name}</h2>
+    <div className="min-h-screen bg-gray-100 p-6">
+     <Link href="/" className="text-blue-500 underline">
+  Back
+</Link>
+
+
+      <h1 className="text-3xl font-bold text-center text-blue-600 mb-8">
+        {POPULAR_MOVIES_MESSAGE}
+      </h1>
+      <ul className="space-y-6">
+        {movies.map((movie) => (
+          <li
+            key={movie.id}
+            className="bg-white rounded-lg shadow-lg p-4 hover:shadow-xl transition-shadow"
+          >
+            <Link href={`/movies/${movie.id}`} passHref>
+              <h2 className="text-xl font-semibold text-gray-800 hover:text-blue-600 cursor-pointer">
+                {movie.name}
+              </h2>
             </Link>
           </li>
         ))}
@@ -32,16 +35,12 @@ const Movies = ({ popularMovies }: MoviesProps) => {
 
 export default Movies;
 
+export const getStaticProps: GetStaticProps<MoviesProps> = async () => {
+  const movies = await getMovies();
 
-export async function getStaticProps() {
-
-    const response = await fetch ('https://67f8e890094de2fe6e9fb1d5.mockapi.io/popular_movies/movies');
-    const data = await response.json();
-    console.log(data);
-
-    return {
-        props : {
-            popularMovies : data,
-        },
-    }
-}
+  return {
+    props: {
+      movies,
+    },
+  };
+};
