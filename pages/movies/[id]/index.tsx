@@ -1,6 +1,6 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import Image from "next/image";
-import { getMovieById, getMovies } from "@/apis";
+import { getMovies } from "@/apis";
 import { movie, MovieDetailsProps } from "@/types/movies";
 import { LOADING_MESSAGE, MOVIE_NOT_FOUND_MESSAGE } from "@/constants/constants";
 import { useRouter } from "next/router";
@@ -55,7 +55,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
    fallback: "blocking",
   };
 };
-
 export const getStaticProps: GetStaticProps<MovieDetailsProps> = async (context) => {
   const { params } = context;
 
@@ -67,12 +66,14 @@ export const getStaticProps: GetStaticProps<MovieDetailsProps> = async (context)
     };
   }
 
-  const movie = await getMovieById(params.id);
+  const movies = await getMovies();
+  const movie = movies.find((m : movie) => m.id === params.id) || null;
 
   return {
     props: {
-      movie: movie || null,
+      movie,
     },
-    revalidate: 600000,
+    revalidate: 600000, 
   };
 };
+
