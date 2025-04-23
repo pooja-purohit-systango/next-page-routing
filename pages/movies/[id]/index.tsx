@@ -5,6 +5,7 @@ import { movie, MovieDetailsProps } from "@/types/movies";
 import { LOADING_MESSAGE, MOVIE_NOT_FOUND_MESSAGE } from "@/constants/constants";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { HOME_PAGE_ROUTE } from "@/constants/routes";
 
 export default function MovieDetails({ movie }: MovieDetailsProps) {
   const router = useRouter();
@@ -21,7 +22,7 @@ export default function MovieDetails({ movie }: MovieDetailsProps) {
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
-      <Link href="/" className="text-blue-500 underline">
+      <Link href={HOME_PAGE_ROUTE} className="text-blue-500 underline">
   Back
 </Link>
       <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-8">

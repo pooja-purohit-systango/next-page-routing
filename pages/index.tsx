@@ -4,6 +4,7 @@ import { getMovies } from "../apis/index";
 import { POPULAR_MOVIES_MESSAGE, WELCOME_MESSAGE } from "@/constants/constants";
 import { MoviesProps } from "@/types/movies";
 import Link from "next/link";
+import { MOVIES_ROUTE } from "@/constants/routes";
 
 const HomePage = ({ movies }: MoviesProps) => {
   return (
@@ -19,7 +20,7 @@ const HomePage = ({ movies }: MoviesProps) => {
 
       <div className="text-center mt-14">
         <Link
-          href="/movies"
+          href={MOVIES_ROUTE}
           className="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg text-lg font-medium shadow-md hover:bg-blue-700 transition duration-300"
         >
           {POPULAR_MOVIES_MESSAGE}
