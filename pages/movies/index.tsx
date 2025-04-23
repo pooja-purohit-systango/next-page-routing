@@ -6,6 +6,17 @@ import { POPULAR_MOVIES_MESSAGE } from "@/constants/constants";
 import { HOME_PAGE_ROUTE, MOVIES_ROUTE } from "@/constants/routes";
 
 const Movies = ({ movies }: MoviesProps) => {
+
+  if (!movies || movies.length === 0) {
+    console.log("Movies array is empty");
+    return (
+      <>
+        <div className="bg-yellow-100 text-yellow-800 p-4 rounded-md text-center font-medium">
+          Sorry, no movies to show...
+        </div>
+      </>
+    );
+  }
   return (
     <div className="min-h-screen bg-gray-100 p-6">
      <Link href={HOME_PAGE_ROUTE} className="text-blue-500 underline">

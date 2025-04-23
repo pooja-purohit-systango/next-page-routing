@@ -3,16 +3,24 @@ import Image from "next/image";
 import Link from "next/link";
 import { MoviesProps } from "@/types/movies";
 
-
 function LatestMovies({ movies }: MoviesProps) {
-
-  const sortedMovies = movies
-    .sort(
-      (a, b) =>
-        new Date(b.releaseDate).getTime() - new Date(a.releaseDate).getTime()
-    );
+  const sortedMovies = movies.sort(
+    (a, b) =>
+      new Date(b.releaseDate).getTime() - new Date(a.releaseDate).getTime()
+  );
 
   const latestMovies = sortedMovies.slice(0, 5);
+
+  if (!movies || movies.length === 0) {
+    console.log("Movies array is empty");
+    return (
+      <>
+        <div className="bg-yellow-100 text-yellow-800 p-4 rounded-md text-center font-medium">
+          Sorry, no movies to show...
+        </div>
+      </>
+    );
+  }
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
