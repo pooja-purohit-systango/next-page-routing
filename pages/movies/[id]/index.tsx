@@ -1,11 +1,17 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import Image from "next/image";
 import { getMovies } from "@/apis";
-import { movie, MovieDetailsProps } from "@/types/movies";
+import { movie } from "@/types/movies";
 import { LOADING_MESSAGE, MOVIE_NOT_FOUND_MESSAGE } from "@/constants/constants";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { HOME_PAGE_ROUTE } from "@/constants/routes";
+import { notFound } from "next/navigation";
+
+
+export interface MovieDetailsProps {
+  movie: movie | null;
+}
 
 export default function MovieDetails({ movie }: MovieDetailsProps) {
   const router = useRouter();
@@ -54,6 +60,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     paths,
    // fallback: false, // fallbackfalse m new movies ki details m 404 aa rha h
    fallback: "blocking",
+  // fallback: true,
   };
 };
 export const getStaticProps: GetStaticProps<MovieDetailsProps> = async (context) => {
@@ -74,7 +81,6 @@ export const getStaticProps: GetStaticProps<MovieDetailsProps> = async (context)
     props: {
       movie,
     },
-    revalidate: 600000, 
+    revalidate: 1, 
   };
 };
-

@@ -1,22 +1,26 @@
 import Link from "next/link";
 import { getMovies } from "../../apis/index";
-import { MoviesProps } from "@/types/movies";
+import { movie } from "@/types/movies";
 import { GetStaticProps } from "next";
-import { POPULAR_MOVIES_MESSAGE } from "@/constants/constants";
+import { NO_MOVIES, POPULAR_MOVIES_MESSAGE } from "@/constants/constants";
 import { HOME_PAGE_ROUTE, MOVIES_ROUTE } from "@/constants/routes";
+
+export interface MoviesProps {
+  movies: movie[];
+}
 
 const Movies = ({ movies }: MoviesProps) => {
 
-  if (!movies || movies.length === 0) {
-    console.log("Movies array is empty");
-    return (
-      <>
-        <div className="bg-yellow-100 text-yellow-800 p-4 rounded-md text-center font-medium">
-          Sorry, no movies to show...
-        </div>
-      </>
-    );
-  }
+  // if (!movies || movies.length === 0) {
+  //   console.log("Movies array is empty");
+  //   return (
+  //     <>
+  //       <div className="bg-yellow-100 text-yellow-800 p-4 rounded-md text-center font-medium">
+  //         {NO_MOVIES}
+  //       </div>
+  //     </>
+  //   );
+  // }
   return (
     <div className="min-h-screen bg-gray-100 p-6">
      <Link href={HOME_PAGE_ROUTE} className="text-blue-500 underline">
@@ -56,3 +60,13 @@ export const getStaticProps: GetStaticProps<MoviesProps> = async () => {
     },
   };
 };
+
+// export const getServerSideProps: GetServerSideProps<MoviesProps> = async () => {
+//   const movies = await getMovies();
+
+//   return {
+//     props: {
+//       movies,
+//     },
+//   };
+// };
